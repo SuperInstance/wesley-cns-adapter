@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "wesley-cns-adapter"
+version = "0.1.0"
+description = "Connects Wesley (Granite via Ollama) to the CNS signal bus"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "SuperInstance"}]
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.28",
+]
+
+[project.scripts]
+wesley-cns = "wesley_cns.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
