@@ -80,6 +80,7 @@ def response_to_uscp(
     original_intent: str = "",
     original_priority: str = "MEDIUM",
     agent_id: str = "wesley",
+    model: str = "granite",
 ) -> dict:
     """Convert Wesley's text response into a USCP-v1 response packet."""
     from datetime import datetime, timezone
@@ -113,8 +114,8 @@ def response_to_uscp(
             "payload": {
                 "type": "agent_response",
                 "data": {
-                    "agent": "wesley",
-                    "model": "granite",
+                    "agent": agent_id,
+                    "model": model,
                     "response": wesley_text,
                     "in_response_to": original_intent,
                     "addressed_to": target_id,

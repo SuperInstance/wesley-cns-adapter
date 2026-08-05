@@ -20,6 +20,12 @@ class Speaker:
     ) -> None:
         self.inbox = Path(inbox_path)
         self.agent_id = agent_id
+        self._seq = 0
+
+    def _next_seq(self) -> int:
+        """Return the next sequence number."""
+        self._seq += 1
+        return self._seq
 
     def speak(
         self,
@@ -27,6 +33,7 @@ class Speaker:
         target_id: str = "hermes-cns",
         original_intent: str = "",
         original_priority: str = "MEDIUM",
+        model: str = "granite",
     ) -> Path:
         """Write Wesley's response as a USCP packet to the inbox."""
         self.inbox.mkdir(parents=True, exist_ok=True)
@@ -37,10 +44,12 @@ class Speaker:
             original_intent=original_intent,
             original_priority=original_priority,
             agent_id=self.agent_id,
+            model=model,
         )
 
         timestamp_str = datetime.now().strftime("%Y%m%dT%H%M%S")
-        filename = f"{self.agent_id}_{timestamp_str}_001.json"
+        seq = self._next_seq()
+        filename = f"{self.agent_id}_{timestamp_str}_{seq:03d}.json"
 
         # Atomic write: temp then rename
         tmp_path = self.inbox / f".{filename}.tmp"
