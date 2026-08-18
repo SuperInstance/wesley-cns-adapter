@@ -97,7 +97,7 @@ def tint_reply(reply_text: str, room_messages=None) -> str:
         return reply_text
     if w >= 0.5:
         return f"(the room feels warm to me — everyone means it) {reply_text}"
-    if w <= -0.3:
+    if w <= -0.25:
         # Wesley reads panic softer than the room does (his divergence is the
         # point) — his own alarm threshold is gentler than a room elephant's.
         return f"(something's wrong in the room — I feel it) {reply_text}"
